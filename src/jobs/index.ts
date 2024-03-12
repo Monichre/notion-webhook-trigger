@@ -79,7 +79,7 @@ console.log('message: ', message);
     } = tagMetaData
     console.log('value: ', value)
 
-    const tags = value.split(',').map((tag) => ({
+    const tags = value.split(',').map((tag: string) => ({
       name: tag,
     }))
 
