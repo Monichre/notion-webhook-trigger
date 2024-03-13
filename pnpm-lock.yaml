@@ -10,9 +10,6 @@ dependencies:
   '@trigger.dev/openai':
     specifier: ^2.3.18
     version: 2.3.18
-  '@trigger.dev/react':
-    specifier: ^2.3.18
-    version: 2.3.18(react-dom@18.0.0)(react@18.0.0)
   '@trigger.dev/sdk':
     specifier: ^2.3.18
     version: 2.3.18
@@ -282,28 +279,6 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /@tanstack/query-core@5.0.0-beta.0:
-    resolution: {integrity: sha512-VGq/H3PuRoj0shOcg1S5Flv3YD2qNz2ttk8w5xe5AHQE1I8NO9EHSBUxezIpk4dD6M7bQDtwHBMqqU2EwMwyUw==}
-    dev: false
-
-  /@tanstack/react-query@5.0.0-beta.2(react-dom@18.0.0)(react@18.0.0):
-    resolution: {integrity: sha512-JdK1HRw20tuwg3GfT3QZTkuS7s2KDa9FeozuJ7jZULlwPczZagouqYmM6+PL0ad6jfCnw8NzmLFtZdlBx6cTmA==}
-    peerDependencies:
-      react: ^18.0.0
-      react-dom: ^18.0.0
-      react-native: '*'
-    peerDependenciesMeta:
-      react-dom:
-        optional: true
-      react-native:
-        optional: true
-    dependencies:
-      '@tanstack/query-core': 5.0.0-beta.0
-      client-only: 0.0.1
-      react: 18.0.0
-      react-dom: 18.0.0(react@18.0.0)
-    dev: false
-
   /@trigger.dev/core-backend@2.3.18:
     resolution: {integrity: sha512-LVeeerraGeqKNd2gtajQY+mnGWqkYW7Q2r5oWpL5xIZ8aQg3HRhSIfZs1dryexwKlfqnRjGWueGTy2+j1tbzcg==}
     engines: {node: '>=18.0.0'}
@@ -352,22 +327,6 @@ packages:
       - encoding
       - supports-color
       - utf-8-validate
-    dev: false
-
-  /@trigger.dev/react@2.3.18(react-dom@18.0.0)(react@18.0.0):
-    resolution: {integrity: sha512-S+frKgYJoT5JEzYejqlL5rkeHVxTR7wuJvvBMk+cFwA+nKV6isr8VnWmGQivGXGDlKMdF8IihwO+Guqs5tv/Hw==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18
-    dependencies:
-      '@tanstack/react-query': 5.0.0-beta.2(react-dom@18.0.0)(react@18.0.0)
-      '@trigger.dev/core': 2.3.18
-      debug: 4.3.4
-      react: 18.0.0
-      zod: 3.22.3
-    transitivePeerDependencies:
-      - react-dom
-      - react-native
-      - supports-color
     dev: false
 
   /@trigger.dev/sdk@2.3.18:
