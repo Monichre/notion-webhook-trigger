@@ -1,6 +1,6 @@
 import { client } from '@/trigger'
 
-export async function POST(request: any, response: any) {
+export async function POST(request: any) {
   console.log('request: ', request)
   try {
     const req = await request.json()
@@ -23,7 +23,7 @@ export async function POST(request: any, response: any) {
     console.log('event: ', event)
 
     // Example: Send a response
-    return response.json({
+    return Response.json({
       status: 200,
       event,
     })
