@@ -41,7 +41,6 @@ client.defineJob({
       },
     } = db
     const existingTags = options.map((option: any) => option.name).join(', ')
-    console.log('existingTags: ', existingTags)
 
     const { name, link, id }: any = payload
 

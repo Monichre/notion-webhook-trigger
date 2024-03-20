@@ -101,6 +101,12 @@ export async function POST(request: any) {
         // await io.logger.info('choices', response.choices)
       }
     }
+    return Response.json({
+      status: 200,
+    })
   } else {
+    return Response.json({
+      status: 400,
+    })
   }
 }
