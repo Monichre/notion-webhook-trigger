@@ -6,30 +6,28 @@ export async function POST(request: any) {
   try {
     const req = await request.json()
     console.log('req: ', req)
-    if (req?.body || req?.payload) {
-      const {
-        body: { payload },
-      } = req
-      const page = payload?.page || payload
-      console.log('page: ', page)
+    const { content, id, link, name } = req
 
-      const event = client.sendEvent({
-        id: 'notion-create-page',
-        name: 'notion-create-page',
-        payload: {
-          page: {
-            page,
-          },
+    console.log('page: ', page)
+
+    const event = client.sendEvent({
+      id: 'notion-create-page',
+      name: 'notion-create-page',
+      payload: {
+        page: {
+          id,
+          link,
+          name,
         },
-      })
-      console.log('event: ', event)
+      },
+    })
+    console.log('event: ', event)
 
-      // Example: Send a response
-      return Response.json({
-        status: 200,
-        event,
-      })
-    }
+    // Example: Send a response
+    return Response.json({
+      status: 200,
+      event,
+    })
     // Process the webhook payload
   } catch (error: any) {
     console.log('error: ', error)
