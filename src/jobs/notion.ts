@@ -30,17 +30,30 @@ client.defineJob({
     openai: openAiTrigger,
   },
   run: async (payload, io: any, ctx) => {
-    console.log('ctx: ', ctx)
-    console.log('payload: ', payload)
+    const db = await notion.databases.retrieve({
+      database_id: process.env.NOTION_TOOLS_DATABASE_ID,
+    })
+    const {
+      properties: {
+        Tags: {
+          multi_select: { options },
+        },
+      },
+    } = db
+    const existingTags = options.map((option: any) => option.name).join(', ')
+    console.log('existingTags: ', existingTags)
+
     const { name, link, id }: any = payload
 
     const message = `Name: ${name}, Link: ${link}, id: ${id}`
-
+    const instructions = `Analyze this list of existing tags ${existingTags} and be sure to prioritize their use and addition to this notion page before you create any new or original tags`
+    console.log('instructions: ', instructions)
     const run = await io.openai.beta.threads.createAndRunUntilCompletion(
       'create-thread',
       {
         assistant_id: process.env.NOTION_ASSISTANT_ID || '',
         thread: {
+          instructions,
           messages: [
             {
               role: 'user',
@@ -50,7 +63,6 @@ client.defineJob({
         },
       }
     )
-    console.log('run: ', run)
 
     if (run.status !== 'completed') {
       throw new Error(
