@@ -28,22 +28,12 @@ client.defineJob({
   run: async (payload, io: any, ctx) => {
     console.log('ctx: ', ctx)
     console.log('payload: ', payload)
-    const { page }: any = payload
-    console.log('page: ', page)
     const {
-      properties_value: { Name, Link, Description },
-      id,
-    } = page
-    console.log('Link: ', Link)
-    console.log('Name: ', Name)
-    const [name] = Name
-    console.log('name: ', name)
-    const { plain_text } = name
-    console.log('plain_text: ', plain_text)
-    const message = `Name: ${plain_text}, Link: ${Link}, Description: ${Description}`
-    console.log('message: ', message)
+      page: { name, link, id },
+    }: any = payload
 
-    console.log('page: ', page)
+    const message = `Name: ${name}, Link: ${link}, id: ${id}`
+    console.log('message: ', message)
 
     const run = await io.openai.beta.threads.createAndRunUntilCompletion(
       'create-thread',
