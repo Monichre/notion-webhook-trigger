@@ -45,14 +45,13 @@ client.defineJob({
 
     const { name, link, id }: any = payload
 
-    const message = `Name: ${name}, Link: ${link}, id: ${id}`
-    const instructions = `Analyze this list of existing tags ${existingTags} and be sure to prioritize their use and addition to this notion page before you create any new or original tags`
-    console.log('instructions: ', instructions)
+    const message = `Here is a list of existing tags: ${existingTags}. Use these before you create any new or original tags. Here are the page details - Name: ${name}, Link: ${link}, id: ${id}`
+
     const run = await io.openai.beta.threads.createAndRunUntilCompletion(
       'create-thread',
       {
         assistant_id: process.env.NOTION_ASSISTANT_ID || '',
-        instructions,
+
         thread: {
           messages: [
             {
