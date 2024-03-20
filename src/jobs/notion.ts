@@ -5,11 +5,11 @@ import zod from 'zod'
 import { OpenAI } from '@trigger.dev/openai'
 // secret_foafg7aBxPOjegjeQTw1VgrvAzbDnTyKqpqxFG0di52
 
-const notion: any = new Client({
+export const notion: any = new Client({
   auth: process.env.NOTION_SECRET!,
 })
 
-const openai = new OpenAI({
+export const openAiTrigger = new OpenAI({
   id: 'openai',
   apiKey: process.env.OPENAI_API_KEY!,
 })
@@ -27,7 +27,7 @@ client.defineJob({
     }),
   }),
   integrations: {
-    openai,
+    openai: openAiTrigger,
   },
   run: async (payload, io: any, ctx) => {
     console.log('ctx: ', ctx)
@@ -35,7 +35,6 @@ client.defineJob({
     const { name, link, id }: any = payload
 
     const message = `Name: ${name}, Link: ${link}, id: ${id}`
-    console.log('message: ', message)
 
     const run = await io.openai.beta.threads.createAndRunUntilCompletion(
       'create-thread',

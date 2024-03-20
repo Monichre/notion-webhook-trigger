@@ -32,23 +32,3 @@ export async function POST(request: any) {
   }
 }
 
-// import type { VercelRequest, VercelResponse } from '@vercel/node'
-
-// export default function (request: VercelRequest, response: VercelResponse) {
-
-//   const { id, link, name } = await request.json()
-
-//   const event = await client.sendEvent({
-//     name: 'notion-create-page',
-//     payload: {
-//       page: {
-//         id,
-//         link,
-//         name,
-//       },
-//     },
-//   })
-//   console.log('event: ', event)
-
-//   response.send({event})
-// }
