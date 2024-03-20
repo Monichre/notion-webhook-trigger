@@ -1,6 +1,6 @@
 import { client } from '@/trigger'
 
-export async function POST(request: Request, response: Response) {
+export async function POST(request: any, response: any) {
   console.log('request: ', request)
   try {
     const req = await request.json()
@@ -23,18 +23,12 @@ export async function POST(request: Request, response: Response) {
     console.log('event: ', event)
 
     // Example: Send a response
-    return Response.json({
+    return response.json({
       status: 200,
       event,
     })
     // Process the webhook payload
   } catch (error: any) {
-    return new Response(`Webhook error: ${error.message}`, {
-      status: 400,
-    })
+    console.log('error: ', error)
   }
-
-  return new Response('Success!', {
-    status: 200,
-  })
 }
