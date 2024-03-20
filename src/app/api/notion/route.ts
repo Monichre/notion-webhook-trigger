@@ -7,7 +7,7 @@ export async function POST(request: any) {
     console.log('req: ', req)
     const { id, link, name } = req
 
-    const event = client.sendEvent({
+    const event = await client.sendEvent({
       id: 'notion-create-page',
       name: 'notion-create-page',
       payload: {
