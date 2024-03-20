@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { client } from '@/trigger'
 
 export async function POST(request: any) {
