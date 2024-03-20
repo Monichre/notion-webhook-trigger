@@ -2,13 +2,10 @@
 import { client } from '@/trigger'
 
 export async function POST(request: any) {
-  console.log('request: ', request)
   try {
     const req = await request.json()
     console.log('req: ', req)
-    const { content, id, link, name } = req
-
-    console.log('page: ', page)
+    const { id, link, name } = req
 
     const event = client.sendEvent({
       id: 'notion-create-page',
