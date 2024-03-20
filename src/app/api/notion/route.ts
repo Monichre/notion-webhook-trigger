@@ -26,7 +26,7 @@ export async function POST(request: any) {
       console.log('event: ', event)
 
       // Example: Send a response
-      return new Response.json({
+      return Response.json({
         status: 200,
         event,
       })
@@ -34,7 +34,7 @@ export async function POST(request: any) {
     // Process the webhook payload
   } catch (error: any) {
     console.log('error: ', error)
-    return new Response.json({
+    return Response.json({
       status: 404,
       message: 'Error',
     })
