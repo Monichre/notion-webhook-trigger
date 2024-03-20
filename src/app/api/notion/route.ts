@@ -8,10 +8,9 @@ export async function POST(request: any) {
     console.log('req: ', req)
     if (req?.body || req?.payload) {
       const {
-        body: {
-          payload: { page },
-        },
+        body: { payload },
       } = req
+      const page = payload?.page || payload
       console.log('page: ', page)
 
       const event = client.sendEvent({
