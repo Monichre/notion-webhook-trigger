@@ -4,18 +4,15 @@ import { client } from '@/trigger'
 export async function POST(request: any) {
   try {
     const req = await request.json()
-    console.log('req: ', req)
+
     const { id, link, name } = req
 
     const event = await client.sendEvent({
-      id: 'notion-create-page',
       name: 'notion-create-page',
       payload: {
-        page: {
-          id,
-          link,
-          name,
-        },
+        id,
+        link,
+        name,
       },
     })
     console.log('event: ', event)
@@ -34,3 +31,24 @@ export async function POST(request: any) {
     })
   }
 }
+
+// import type { VercelRequest, VercelResponse } from '@vercel/node'
+
+// export default function (request: VercelRequest, response: VercelResponse) {
+
+//   const { id, link, name } = await request.json()
+
+//   const event = await client.sendEvent({
+//     name: 'notion-create-page',
+//     payload: {
+//       page: {
+//         id,
+//         link,
+//         name,
+//       },
+//     },
+//   })
+//   console.log('event: ', event)
+
+//   response.send({event})
+// }

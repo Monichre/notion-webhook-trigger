@@ -1,7 +1,7 @@
 import { eventTrigger } from '@trigger.dev/sdk'
 import { Client } from '@notionhq/client'
 import { client } from '@/trigger'
-
+import zod from 'zod'
 import { OpenAI } from '@trigger.dev/openai'
 // secret_foafg7aBxPOjegjeQTw1VgrvAzbDnTyKqpqxFG0di52
 
@@ -18,9 +18,13 @@ client.defineJob({
   id: 'notion-create-page',
   name: 'Notion Page Created',
   version: '1.0.0',
-
   trigger: eventTrigger({
     name: 'notion-create-page',
+    schema: zod.object({
+      name: zod.string(),
+      link: zod.string(),
+      id: zod.string(),
+    }),
   }),
   integrations: {
     openai,
@@ -28,9 +32,7 @@ client.defineJob({
   run: async (payload, io: any, ctx) => {
     console.log('ctx: ', ctx)
     console.log('payload: ', payload)
-    const {
-      page: { name, link, id },
-    }: any = payload
+    const { name, link, id }: any = payload
 
     const message = `Name: ${name}, Link: ${link}, id: ${id}`
     console.log('message: ', message)
