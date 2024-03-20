@@ -52,8 +52,8 @@ client.defineJob({
       'create-thread',
       {
         assistant_id: process.env.NOTION_ASSISTANT_ID || '',
+        instructions,
         thread: {
-          instructions,
           messages: [
             {
               role: 'user',
