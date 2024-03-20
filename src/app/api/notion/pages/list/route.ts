@@ -18,6 +18,18 @@ export async function POST(request: any) {
       ],
     },
   })
+  const db = await notion.databases.retrieve({
+    database_id: process.env.NOTION_TOOLS_DATABASE_ID,
+  })
+  const {
+    properties: {
+      Tags: {
+        multi_select: { options },
+      },
+    },
+  } = db
+  const existingTags = options.map((option: any) => option.name).join(', ')
+
   const payload = pages.map(({ id, properties }: any) => {
     const {
       Name: {
@@ -46,9 +58,8 @@ export async function POST(request: any) {
 
   const message = await openai.beta.threads.messages.create(thread.id, {
     role: 'user',
-    content: `Add tags to these notion pages: ${sentences}`,
+    content: `Here is a list of existing tags: ${existingTags}. Use these before you create any new or original tags. Otherwise add tags to these notion pages: ${sentences}`,
   })
-  console.log('message: ', message)
 
   let run = await openai.beta.threads.runs.create(thread.id, {
     assistant_id,
@@ -59,20 +70,17 @@ export async function POST(request: any) {
   }
   if (run.status === 'completed') {
     const messages = await openai.beta.threads.messages.list(run.thread_id)
-    console.log('messages: ', messages)
 
     for (const message of messages.data.reverse()) {
-      console.log('message: ', message)
       if (message.role === 'assistant') {
         const { content }: any = message
-        console.log('content: ', content)
+
         const [tagMetaData] = content
-        console.log('tagMetaData: ', tagMetaData)
+
         const {
           text: { value },
         } = tagMetaData
         const tagsFormatted = parseJsonList(value)
-        console.log('tagsFormatted: ', tagsFormatted)
 
         await Promise.all(
           tagsFormatted.map(async ({ tags, page_id }: any) => {
@@ -88,13 +96,11 @@ export async function POST(request: any) {
                 },
               },
             })
-            console.log('updated: ', updated)
           })
         )
         // await io.logger.info('choices', response.choices)
       }
     }
   } else {
-    console.log(run.status)
   }
 }
