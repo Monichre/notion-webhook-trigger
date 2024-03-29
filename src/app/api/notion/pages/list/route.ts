@@ -101,10 +101,12 @@ export async function POST(request: any) {
         // await io.logger.info('choices', response.choices)
       }
     }
+    // @ts-ignore
     return Response.json({
       status: 200,
     })
   } else {
+    // @ts-ignore
     return Response.json({
       status: 400,
     })
