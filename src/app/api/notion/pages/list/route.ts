@@ -18,6 +18,7 @@ export async function POST(request: any) {
       ],
     },
   })
+  console.log({pages})
   const db = await notion.databases.retrieve({
     database_id: process.env.NOTION_TOOLS_DATABASE_ID,
   })
@@ -48,17 +49,17 @@ export async function POST(request: any) {
     }
   })
   const payloadFormatted = payload.map(
-    ({ name, link, id }: any) => `Name: ${name}, Link: ${link}, id: ${id} \n`
+    ({ name, link, id }: any) => `Name: ${name}, Link: ${link}, id: ${id}`
   )
 
-  const sentences = payloadFormatted.join(', ')
-
+  const sentences = payloadFormatted.join(',')
+console.log({sentences})
   const assistant_id = process.env.NOTION_ASSISTANT_ID || ''
   const thread = await openai.beta.threads.create()
 
   const message = await openai.beta.threads.messages.create(thread.id, {
     role: 'user',
-    content: `Here is a list of existing tags: ${existingTags}. Use these before you create any new or original tags. Otherwise add tags to these notion pages: ${sentences}`,
+    content: `Here is a list of existing tags: ${existingTags}. Use these before you create any new or original tags. Otherwise add tags to these notion pages: \n ${sentences}`,
   })
 
   let run = await openai.beta.threads.runs.create(thread.id, {
@@ -81,7 +82,7 @@ export async function POST(request: any) {
           text: { value },
         } = tagMetaData
         const tagsFormatted = parseJsonList(value)
-
+console.log({tagsFormatted})
         await Promise.all(
           tagsFormatted.map(async ({ tags, page_id }: any) => {
             const tagData = tags.split(',').map((tag: string) => ({
