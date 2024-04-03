@@ -3,6 +3,7 @@ import { Client } from '@notionhq/client'
 import { client } from '@/trigger'
 import zod from 'zod'
 import { OpenAI } from '@trigger.dev/openai'
+import {parseJsonList} from '@/lib/utils'
 // secret_foafg7aBxPOjegjeQTw1VgrvAzbDnTyKqpqxFG0di52
 
 export const notion: any = new Client({
