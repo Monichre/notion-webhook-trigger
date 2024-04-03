@@ -53,7 +53,7 @@ export async function POST(request: any) {
   )
 
   const sentences = payloadFormatted.join(',')
-console.log({sentences})
+
   const assistant_id = process.env.NOTION_ASSISTANT_ID || ''
   const thread = await openai.beta.threads.create()
 
@@ -82,7 +82,7 @@ console.log({sentences})
           text: { value },
         } = tagMetaData
         const tagsFormatted = parseJsonList(value)
-console.log({tagsFormatted})
+
         await Promise.all(
           tagsFormatted.map(async ({ tags, page_id }: any) => {
             const tagData = tags.split(',').map((tag: string) => ({

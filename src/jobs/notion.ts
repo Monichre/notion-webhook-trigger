@@ -86,10 +86,13 @@ client.defineJob({
       text: { value },
     } = tagMetaData
     console.log('value: ', value)
-
-    const tags = value.split(',').map((tag: string) => ({
+const parsed = parseJsonList(value)
+console.log('parsed: ', parsed)
+    const tags = parsed.split(',').map((tag: string) => ({
       name: tag,
     }))
+
+    console.log('tags: ', tags)
 
     // await io.logger.info('choices', response.choices)
     const updated = await notion.pages.update({
