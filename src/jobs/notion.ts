@@ -87,9 +87,10 @@ client.defineJob({
       text: { value },
     } = tagMetaData
     console.log('value: ', value)
-const parsed = parseJsonList(value)
-console.log('parsed: ', parsed)
-    const tags = parsed.split(',').map((tag: string) => ({
+    const {tags: tagsFormatted} = parseJsonList(value)
+
+console.log('tagsFormatted: ', tagsFormatted)
+    const tags = tagsFormatted.split(',').map((tag: string) => ({
       name: tag,
     }))
 
