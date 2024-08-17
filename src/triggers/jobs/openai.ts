@@ -101,7 +101,7 @@ Provide the tags based on the content you receive.”
         ],
       },
       Tags: [
-        ...multi_select.map((tag) => ({
+        ...multi_select.map((tag: any) => ({
           name: tag,
         })),
       ],
@@ -121,7 +121,7 @@ export const openaiBulkTagNotionResourceTask = task({
   },
 
   run: async ({ pages, existingTags }: any) => {
-    const formatCommand = (pages) =>
+    const formatCommand = (pages: any[]) =>
       pages
         .map(
           ({ name, id, link }: any, i: number) =>
@@ -203,7 +203,7 @@ export const openaiBulkTagNotionResourceTask = task({
           ],
         },
         Tags: [
-          ...multi_select.map((tag) => ({
+          ...multi_select.map((tag: any) => ({
             name: tag,
           })),
         ],

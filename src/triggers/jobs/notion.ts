@@ -78,7 +78,8 @@ export const bulkUpdateToolResourceTags = task({
   name: 'Bulk Update Tool Resources',
   version: '1.0.0',
 
-  run: async (payload) => {
+  run: async (payload: any) => {
+    console.log('payload: ', payload)
     const { results: pages } = await notion.databases.query({
       database_id: process.env.NOTION_TOOLS_DATABASE_ID,
       page_size: 50,
